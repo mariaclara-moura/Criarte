@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D903E4892BF52DED008AFA73 /* PottaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D903E4882BF52DED008AFA73 /* PottaOne-Regular.ttf */; };
 		D914E8B02BF27FB800E1C041 /* CriarteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914E8AF2BF27FB800E1C041 /* CriarteApp.swift */; };
 		D914E8B22BF27FB800E1C041 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D914E8B12BF27FB800E1C041 /* ContentView.swift */; };
 		D914E8B42BF27FB900E1C041 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D914E8B32BF27FB900E1C041 /* Assets.xcassets */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D903E4882BF52DED008AFA73 /* PottaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PottaOne-Regular.ttf"; sourceTree = "<group>"; };
+		D903E48A2BF52E71008AFA73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D914E8AC2BF27FB800E1C041 /* Criarte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Criarte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D914E8AF2BF27FB800E1C041 /* CriarteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriarteApp.swift; sourceTree = "<group>"; };
 		D914E8B12BF27FB800E1C041 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -34,6 +37,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D903E4872BF52D7C008AFA73 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D903E4882BF52DED008AFA73 /* PottaOne-Regular.ttf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		D914E8A32BF27FB800E1C041 = {
 			isa = PBXGroup;
 			children = (
@@ -53,6 +64,8 @@
 		D914E8AE2BF27FB800E1C041 /* Criarte */ = {
 			isa = PBXGroup;
 			children = (
+				D903E48A2BF52E71008AFA73 /* Info.plist */,
+				D903E4872BF52D7C008AFA73 /* Resources */,
 				D914E8AF2BF27FB800E1C041 /* CriarteApp.swift */,
 				D914E8B12BF27FB800E1C041 /* ContentView.swift */,
 				D9460D472BF3E17E000E4956 /* Arts.swift */,
@@ -128,6 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D903E4892BF52DED008AFA73 /* PottaOne-Regular.ttf in Resources */,
 				D914E8B72BF27FB900E1C041 /* Preview Assets.xcassets in Resources */,
 				D914E8B42BF27FB900E1C041 /* Assets.xcassets in Resources */,
 			);
@@ -278,6 +292,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Criarte/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Criarte/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -306,6 +321,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Criarte/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Criarte/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

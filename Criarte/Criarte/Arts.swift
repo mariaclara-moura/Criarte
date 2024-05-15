@@ -15,3 +15,6 @@ struct Arts: Identifiable {
     let author: String
     let archive: String
 }
+
+var allArts: [Arts] = [ Arts(name: "Abaporu", author: "Tarsila do Amaral", archive: "abaporu"), Arts(name: "O Grito", author: "Edward Munch", archive: "grito")
+]
