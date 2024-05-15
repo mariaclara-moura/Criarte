@@ -35,11 +35,11 @@ struct ContentView: View {
                         }
                     }
                     .padding(.top, 150.0).padding(.leading, 20.0)
-                }.edgesIgnoringSafeArea(.top).padding(.top, -120.0)
+                }.edgesIgnoringSafeArea(.top).padding(.top, -130.0)
                 
                 HStack(alignment: .center, spacing: -40.0) {
                     ZStack {
-                        Rectangle().frame(width: 258, height: 285).foregroundColor(Color(red: 51/255, green: 30/255, blue: 27/255))
+                        Rectangle().frame(width: 258, height: 295).foregroundColor(Color(red: 51/255, green: 30/255, blue: 27/255))
                         Image(ImageResource.abaporu).resizable().padding(.top, -12.0).scaledToFit().frame(
                             maxWidth:228,
                             maxHeight: 265
