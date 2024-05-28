@@ -7,42 +7,50 @@ extension Attribute {
                 Attribute(
                     name: "Expressividade",
                     position: 0,
-                    weight: 8
+                    weight: 8,
+                    description: "É capacidade de transmitir emoções e sentimentos."
                 ),
                 Attribute(
                     name: "Autenticidade",
                     position: 0,
-                    weight: 6
+                    weight: 6,
+                    description: "É a habilidade de expressar-se de forma genuína e verdadeira."
                 ),
                 Attribute(
                     name: "Complexidade",
                     position: 0,
-                    weight: 1
+                    weight: 1,
+                    description: "É a capacidade de criar obras com múltiplas camadas e significados."
                 ),
                 Attribute(
                     name: "Inovação",
                     position: 0,
-                    weight: 2
+                    weight: 2,
+                    description: "É a habilidade de introduzir novos conceitos e técnicas na arte."
                 ),
                 Attribute(
                     name: "Impacto",
                     position: 0,
-                    weight: 4
+                    weight: 4,
+                    description: "É a capacidade de causar impacto e despertar reações no público."
                 ),
                 Attribute(
                     name: "Coerência",
                     position: 0,
-                    weight: 3
+                    weight: 3,
+                    description: "É a consistência e harmonia presente na obra produzida."
                 ),
                 Attribute(
                     name: "Curiosidade",
                     position: 0,
-                    weight: 5
+                    weight: 5,
+                    description: "É a disposição para explorar novas referências e inspirações."
                 ),
                 Attribute(
                     name: "Experimentação",
                     position: 0,
-                    weight: 7
+                    weight: 7,
+                    description: "É a disposição para explorar novas abordagens e técnicas artísticas."
                 )
         ]
     }
@@ -54,9 +62,12 @@ struct ContentView: View {
     @State var showAlert = false
     @State var showInfo = false
     @State var selectedArt = allArts.randomElement()!
+    @State var previousSelectedArt = allArts.randomElement()!
     @State var resetButton = false
     @State var scrollToTop = false
-
+    @State var infoMessage = ""
+    @State var infoHeight: CGFloat = 430
+    
     var body: some View {
         ZStack {
             Color(.pinkBackground )
@@ -70,7 +81,10 @@ struct ContentView: View {
                         Text("Criarte")
                         .font(.pottaOne(size: 48.0))
                         .foregroundColor(Color.orangeTitle)
-                        Button(action: {showInfo = true}) {
+                        Button(action: {
+                                infoMessage = ""
+                                infoHeight = 430
+                                showInfo = true}) {
                             Image(systemName: "info.circle")
                             .foregroundColor(Color(.orangeTitle))
                         }
@@ -102,7 +116,7 @@ struct ContentView: View {
                 .font( .poppinsSemiBold(size: 20.0))
                 .foregroundColor(Color(.darkBrown))
                 .multilineTextAlignment(.center)
-                .frame(width: 270.0,height: 60.0)
+                .frame(width: 270.0,height: 65.0)
                 ScrollViewReader { value in
                     ScrollView( .vertical, showsIndicators: true ) {
                         VStack(spacing: 2) {
@@ -110,22 +124,29 @@ struct ContentView: View {
                                 let attribute = attributes[index]
                                 HStack {
                                     VStack(alignment: .leading) {
-                                        Text(attribute.name)
-                                        .font(.poppinsRegular(size: 16.0))
-                                        .padding(.leading,2.0)
-                                        .foregroundColor(Color( .darkBrown ) )
+                                        HStack(alignment: .center) {
+                                            Text(attribute.name)
+                                            .font(.poppinsRegular(size: 16.0))
+                                            .padding(.leading,2.0)
+                                        .foregroundColor(Color(.darkBrown))
+                                            Button(action: {
+                                                infoMessage = attribute.description
+                                                infoHeight = 180
+                                                showInfo = true}) {
+                                                Image(systemName: "info.circle")
+                                                .foregroundColor(Color(.darkBrown))
+                                            }
+                                        }
                                         Slider( value: $attributes[index].position, in: 0...10, step: 1)
                                         .accentColor( Color(.orangeButtomOn))
                                         .frame( width: 280, height: 20.0)
                                         .onChange(of: attributes[index].position) {
-                                            print("antes resetbutton: \(resetButton), \(attributes[index].name).moved: \(attributes[index].moved)")
                                             attributes[index].moved = (
                                                 resetButton &&
                                                 attributes[index].moved == .moved &&
                                                 !attributes[index].didChange
                                             ) ? .idle : .moved
                                             attributes[index].didChange = true
-                                            print("depois resetbutton: \(resetButton), \(attributes[index].name).moved: \(attributes[index].moved)")
                                             updateButtonColor()
                                         }
                                     }
@@ -160,25 +181,24 @@ struct ContentView: View {
                     .cornerRadius(16)
                 }
                 .padding( .top,20)
+                .padding(.bottom, 10.0)
                 .disabled( !allSlidersMoved)
             }
             if showAlert {
                 PopUp(showAlert: $showAlert,result: $result, resetAttributes: resetAttributes)
             }
             if showInfo {
-                Info(showInfo: $showInfo)
+                Info(showInfo: $showInfo, message: $infoMessage, height: $infoHeight)
             }
         }
         .edgesIgnoringSafeArea( .top )
     }
     
     func updateButtonColor() {
-        var allTrue = attributes.allSatisfy { $0.moved == .moved }
+        let allTrue = attributes.allSatisfy { $0.moved == .moved }
         allSlidersMoved = allTrue
-        print("alltrue \(allTrue)")
         if allTrue {
             resetButton = false
-            print("liberou geral")
         }
     }
     
@@ -187,10 +207,13 @@ struct ContentView: View {
             attributes[index].position = 0
             attributes[index].didChange = false
         }
-        selectedArt = allArts.randomElement()!
+        previousSelectedArt = selectedArt
+        print(previousSelectedArt, selectedArt)
+        let previousArtID = previousSelectedArt.id
+        selectedArt = allArts.filter { $0.id != previousArtID }.randomElement()!
         allSlidersMoved = false
         resetButton = true
-        print("bloqueou geral")
+     
     }
     
     func processResult() {
@@ -211,13 +234,13 @@ struct Attribute: Identifiable {
     var weight: Int
     var moved = State.idle
     var didChange = false
+    var description = ""
 
     enum State {
         case idle
         case moved
     }
 }
-
 
 
 #Preview {

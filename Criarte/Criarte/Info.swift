@@ -1,26 +1,21 @@
-//
-//  Info.swift
-//  Criarte
-//
-//  Created by Maria Clara Albuquerque Moura on 16/05/24.
-//
-
 import Foundation
 import SwiftUI
 
 struct Info: View {
     @Binding var showInfo: Bool
-    
+    @Binding var message: String
+    @Binding var height: CGFloat
+
     var body: some View {
         ZStack {
             if showInfo {
                 Color.black.opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture {
-                            showInfo = false
+                        showInfo = false
                     }
+                
                 VStack(alignment: .center) {
-                    Spacer()
                     VStack {
                         HStack {
                             Spacer()
@@ -29,37 +24,39 @@ struct Info: View {
                             }) {
                                 Image(systemName: "xmark")
                                     .foregroundColor(Color.orangeButtomOn)
-                                    .padding([.bottom, .trailing], 10.0)
+                                    .padding(.trailing, 10.0)
                                     .font(.system(size: 30))
                             }
                         }
+                        .padding(.top, height == 430 ? 10 : 56)
                         .frame(width: 300.0)
                         
-                        ScrollView(.vertical, showsIndicators: true) {
-                            VStack(alignment: .leading) {
-                                Text("""
-                                    Entre os aspectos considerados para calcular o Quociente de Criatividade Artística estão:
-                                    **Expressividade**: a capacidade de transmitir emoções e sentimentos através da arte.
-                                    **Autenticidade**: a habilidade de expressar-se de forma genuína e verdadeira.
-                                    **Complexidade**: a capacidade de criar obras com múltiplas camadas e significados.
-                                    **Inovação**: a habilidade de introduzir novas ideias, conceitos e técnicas no campo artístico.
-                                    **Impacto**: a capacidade de causar impacto e despertar reações no público.
-                                    **Coerência**: a consistência e harmonia entre as diferentes obras produzidas.
-                                    **Curiosidade**: a disposição para explorar novas referências e inspirações.
-                                    **Experimentação**: a disposição para explorar novas abordagens e técnicas artísticas.
-                                    """)
-                                    .multilineTextAlignment(.leading)
-                            }
-                            .multilineTextAlignment(.center)
-                            .font(.poppinsRegular(size: 16.0))
-                            .padding(.horizontal)
+                        ScrollView {
+                                Text(.init(message != "" ? message : """
+**Bem-vindo ao Criarte!**
+
+No Criarte, você irá explorar obras de arte e perceber os atributos criativos que elas transmitem.
+
+**Como jogar:**
+
+1. **Observe atentamente:** Dedique um tempo para observar cada detalhe da obra. Note as cores, formas, expressões faciais, e a composição geral.
+2. **Identifique os atributos:** Pense sobre os sentimentos que a obra evoca em você. Use seu próprio senso crítico para identificar esses atributos.
+
+**Lembre-se:** não há respostas certas ou erradas. A arte é subjetiva e cada pessoa pode perceber algo diferente. Aproveite a experiência e se permita absorver a criatividade que a arte pode oferecer!
+"""
+                                ))
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.darkBrown)
+                                .font(.poppinsRegular(size: 16.0))
+                                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                                .frame(width: 330)
+                                
                         }
-                        .padding(.bottom, 32.0)
-                        .frame(height: 300.0)
+                        .frame(height: (75 * height / 100))
                     }
                     .padding(.all)
                 }
-                .frame(width: 355, height: 400)
+                .frame(width: 355, height: height)
                 .background(Color.pinkBackground)
                 .cornerRadius(20)
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.orangeButtomOn, lineWidth: 4))
@@ -71,8 +68,6 @@ struct Info: View {
     }
 }
 
-
-
 #Preview {
- Info(showInfo: .constant(true))
+    Info(showInfo: .constant(true), message: .constant("É capacidade de transmitir emoções e sentimentos através"), height: .constant(180))
 }
