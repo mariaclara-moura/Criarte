@@ -20,7 +20,7 @@ extension Attribute {
                     name: "Complexidade",
                     position: 0,
                     weight: 1,
-                    description: "É a capacidade de criar obras com múltiplas camadas e significados."
+                    description: "É a existência de múltiplas camadas e significados na obra."
                 ),
                 Attribute(
                     name: "Inovação",
@@ -32,7 +32,7 @@ extension Attribute {
                     name: "Impacto",
                     position: 0,
                     weight: 4,
-                    description: "É a capacidade de causar impacto e despertar reações no público."
+                    description: "É a capacidade de despertar reações no público."
                 ),
                 Attribute(
                     name: "Coerência",
@@ -56,6 +56,7 @@ extension Attribute {
     }
 }
 struct ContentView: View {
+    
     @State var attributes = Attribute.start
     @State var allSlidersMoved = false
     @State var result: Double?
@@ -131,13 +132,13 @@ struct ContentView: View {
                                         .foregroundColor(Color(.darkBrown))
                                             Button(action: {
                                                 infoMessage = attribute.description
-                                                infoHeight = 180
+                                                infoHeight = 130
                                                 showInfo = true}) {
                                                 Image(systemName: "info.circle")
                                                 .foregroundColor(Color(.darkBrown))
                                             }
                                         }
-                                        Slider( value: $attributes[index].position, in: 0...10, step: 1)
+                                        Slider( value: $attributes[index].position, in: 0...10, step: 0.01)
                                         .accentColor( Color(.orangeButtomOn))
                                         .frame( width: 280, height: 20.0)
                                         .onChange(of: attributes[index].position) {
@@ -208,7 +209,6 @@ struct ContentView: View {
             attributes[index].didChange = false
         }
         previousSelectedArt = selectedArt
-        print(previousSelectedArt, selectedArt)
         let previousArtID = previousSelectedArt.id
         selectedArt = allArts.filter { $0.id != previousArtID }.randomElement()!
         allSlidersMoved = false
